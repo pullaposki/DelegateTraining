@@ -11,8 +11,13 @@ namespace DelegateTraining
 		//Create a delegate
 		public delegate void TestDelegate();
 
+		public delegate bool BoolTestDelegate(int number);
+
 		//Create a field of type TestDelegate
 		public TestDelegate DelegateField;
+
+		public BoolTestDelegate BoolDelegateField;
+
 
 		public void AssignFirstFunctionToField()
 		{
@@ -44,6 +49,34 @@ namespace DelegateTraining
 			DelegateField -= MyTestDelegateFunction2;
 		}
 
+		public void AssignBoolTestFunctionToBoolField()
+		{
+			BoolDelegateField = BoolDelegateTestFunction;
+		}
+
+		// If you need to remove a method from a delegate field later,
+		// don't use anonymous methods.
+
+		public void AssignAnonymousMethodToDelegateField()
+		{
+			DelegateField = delegate () 
+			{ 
+				Console.WriteLine("Anonymous method"); 
+			};
+
+			DelegateField += () => { Console.WriteLine("Anonymous method using Lambda"); };
+		}
+
+		public void AssignAnonymousBoolMethodToBoolDelegateField()
+		{
+			BoolDelegateField = (int i) => { return i > 0; };
+		}
+
+		public void AssignCompactAnonymousBoolMethodToBoolDelegateField()
+		{
+			BoolDelegateField = (int i) => i > 0;
+		}
+
 		void MyTestDelegateFunction()
 		{
 			Console.WriteLine("function 1 executed");
@@ -52,6 +85,11 @@ namespace DelegateTraining
 		void MyTestDelegateFunction2()
 		{
 			Console.WriteLine("function 2 executed");
+		}
+
+		bool BoolDelegateTestFunction(int i)
+		{
+			return i > 0;
 		}
 	}
 }
